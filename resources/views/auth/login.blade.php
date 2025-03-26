@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container col-sm-6  register-box bg-white p-3" style="margin-top:150px;background-color:white;">
         <h2 class="text-center">Login</h2>
         <form action="/login" method="POST">
             <div class="mb-3">

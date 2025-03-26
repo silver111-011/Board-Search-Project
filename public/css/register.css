@@ -1,0 +1,8 @@
+
+    .register-box {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* X, Y, Blur, Spread, Color */
+        padding: 20px;
+        border-radius: 8px; /* Optional: Rounded corners */
+        background-color: #fff; /* Optional: Background color */
+    }
+
