@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->integer('role')->default(2); // 1 = Employer, 2 = Jobseeker
+
         });
     }
 

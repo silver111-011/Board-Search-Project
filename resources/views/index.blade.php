@@ -19,7 +19,7 @@
                     companies, students, and alumni in a single place to collaborate and grow.
                 </p>
                 <div class="buttons">
-                    <a href="{{ url('/jobseeker/dashboard') }}" class="btn btn-success">Search your drem job  →</a>
+                    <a href="{{ url('/jobseeker/dashboard') }}" class="btn btn-success">Search your dream job  →</a>
                     <a href="{{ url('/employer/dashboard') }}" class="btn btn-dark">Hire a talent →</a>
                 </div>
             </div>

@@ -5,7 +5,7 @@
 @section('content')
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center">
-        <h2 class="fw-bold">Job Seeker Dashboard</h2>
+        <h2 class="fw-bold">Technical Support Enginner</h2>
         <a href="{{ url('/jobseeker/apply-job') }}" class="btn btn-success">+ Apply for a Job</a>
     </div>
 
@@ -34,7 +34,8 @@
                         <td>Dar es Salaam</td>
                         <td>2 days ago</td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-outline-primary">View</a>
+                        <a href="{{ route('job.description') }}" class="btn btn-sm btn-outline-primary">View</a>
+
                             <a href="#" class="btn btn-sm btn-outline-success">Apply</a>
                         </td>
                     </tr>
@@ -44,7 +45,8 @@
                         <td>Arusha</td>
                         <td>5 days ago</td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-outline-primary">View</a>
+                        <a href="{{ route('job.description') }}" class="btn btn-sm btn-outline-primary">View</a>
+
                             <a href="#" class="btn btn-sm btn-outline-success">Apply</a>
                         </td>
                     </tr>
@@ -75,7 +77,8 @@
                         <td>ABC Tech</td>
                         <td><span class="badge bg-warning">Under Review</span></td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-outline-info">View</a>
+                        <a href="{{ route('job.description') }}" class="btn btn-sm btn-outline-primary">View</a>
+
                             <a href="#" class="btn btn-sm btn-outline-danger">Withdraw</a>
                         </td>
                     </tr>
@@ -84,7 +87,8 @@
                         <td>Retail Hub</td>
                         <td><span class="badge bg-success">Accepted</span></td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-outline-info">View</a>
+                        <a href="{{ route('job.description') }}" class="btn btn-sm btn-outline-primary">View</a>
+
                         </td>
                     </tr>
                     <!-- More applications -->
