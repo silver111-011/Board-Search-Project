@@ -5,27 +5,13 @@
             <div class="col-md-12">
                 <h5>Quick Links</h5>
                 <a href="#" class="text-white mx-2">Home</a>
-                <a href="#" class="text-white mx-2">Institutions</a>
-                <a href="#" class="text-white mx-2">Employers</a>
-                <a href="#" class="text-white mx-2">About Us</a>
-                <a href="#" class="text-white mx-2">Blogs</a>
+       
                 <a href="#" class="text-white mx-2">Get in Touch</a>
             </div>
         </div>
 
         <!-- App Download Links -->
-        <div class="row mb-4">
-            <div class="col-md-6">
-                <h6>For Employers</h6>
-                <a href="#"><img src="google-play.png" alt="Google Play" width="120"></a>
-                <a href="#"><img src="app-store.png" alt="App Store" width="120"></a>
-            </div>
-            <div class="col-md-6">
-                <h6>For Students & Institutions</h6>
-                <a href="#"><img src="google-play.png" alt="Google Play" width="120"></a>
-                <a href="#"><img src="app-store.png" alt="App Store" width="120"></a>
-            </div>
-        </div>
+     
 
         <!-- Contact Information -->
         <div class="mb-4">

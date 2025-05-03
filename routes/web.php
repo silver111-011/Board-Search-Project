@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmployeersController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,20 +22,24 @@ use App\Http\Controllers\Auth\RegisterController;
 // });
 
 Route::view('/', 'index');
-Route::view('/employer/dashboard', 'employer.dashboard');
-Route::view('/employer/post-job', 'employer.post_job');
-Route::view('/jobseeker/dashboard', 'jobseeker.dashboard');
-Route::view('/jobseeker/apply-job', 'jobseeker.apply_job');
-Route::post('/register', [RegisterController::class, 'register'])->name('register');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::view('/login', 'auth.login');
-Route::view('/register', 'auth.register');
-Route::get('/job/description', function () {
-    return view('jobseeker.description');
-})->name('job.description');
-Route::view('/admin/dashboard','admin.dashboard');
-Route::view('/admin/joblist','admin.joblist');
-Route::view('/admin/jobseekerlist','admin.jobseekerlist');
-Route::view('/admin/employerlist','admin.employerlist');
-Route::view('/admin/jobseekerprofile','admin.jobseekerprofile');
-Route::view('/admin/employerprofile','admin.employerprofile');
+Route::view('/login', 'auth.login')->name('login');
+Route::view('/register', 'auth.register')->name('register');
+Route::post('register',[AuthController::class, 'register'])->name('post.register');
+Route::post('login',[AuthController::class, 'login'])->name('post.login');
+
+// Routes for employer
+Route::middleware(['auth', 'role:employer'])->group(function () {
+Route::get('employeer/dashboard',[EmployeersController::class,'dashboard'])->name('employer.dashboard');
+Route::get('employeer/jobs/form/{id?}',[EmployeersController::class,'jobsform'])->name('employer.jobsform');
+Route::post('employeer/jobs/form/submit',[EmployeersController::class,'submitjobsform'])->name('employer.submitjobsform');
+Route::post('employeer/jobs/form/edit/{id}',[EmployeersController::class,'editjobsform'])->name('employer.editjobsform');
+Route::get('job/applicants/{jobId}',[EmployeersController::class,'jobApplicants'])->name('employer.jobApplicants');
+Route::get('close/open/jon/{jobId}/{status}',[EmployeersController::class,'closeOpenJob'])->name('employer.closeOpenJob');
+Route::post('delete/job/{jobId}',[EmployeersController::class,'deleteJob'])->name('employer.deleteJob');
+Route::get('employer/applicant',[EmployeersController::class,'employerAplicants'])->name('employer.employerAplicants');
+Route::get('employer/all/jobs',[EmployeersController::class,'allJobs'])->name('employer.allJobs');
+Route::get('employer/logout',[EmployeersController::class,'logout'])->name('employer.logout');
+});   
+
+
+

@@ -3,34 +3,30 @@
 @section('title', 'Board Search')
 
 @section('content')
-
-<div class="hero-section">
-    <div class="container">
-        <div class="row align-items-center">
-            <!-- Left Side: Text Content -->
-            <div class="col-md-6 text-content">
-                <h1>
-                    <span class="highlight">Building</span> Careers, <br>
-                    <span class="highlight">Digitizing</span> Campuses, <br>
-                    <span class="highlight">Revolutionizing</span> Recruitments
-                </h1>
-                <p class="subtitle">
-                    The fastest-growing career development platform that brings together academia, 
-                    companies, students, and alumni in a single place to collaborate and grow.
-                </p>
-                <div class="buttons">
-                    <a href="{{ url('/jobseeker/dashboard') }}" class="btn btn-success">Search your dream job  →</a>
-                    <a href="{{ url('/employer/dashboard') }}" class="btn btn-dark">Hire a talent →</a>
-                </div>
-            </div>
-
-            <!-- Right Side: Image -->
-            <div class="col-md-6 text-center">
-                <img src="{{ asset('images/pic1.jpg') }}" alt="Career Development" class="hero-image">
-            </div>
+<div class="row align-items-center">
+    <!-- Left Side: Text Content -->
+    <div class="col-md-6 order-2 order-md-1 text-content text-center text-md-start">
+        <h1>
+            <span class="highlight">Building</span> Careers, <br>
+            <span class="highlight">Digitizing</span> Campuses, <br>
+            <span class="highlight">Revolutionizing</span> Recruitments
+        </h1>
+        <p class="subtitle">
+            The fastest-growing career development platform that brings together academia, 
+            companies, students, and alumni in a single place to collaborate and grow.
+        </p>
+        <div class="buttons">
+            <a href="{{ route('login') }}" class="btn btn-success">Search your dream job  →</a>
+            <a href="{{ route('login') }}" class="btn btn-dark">Hire a talent →</a>
         </div>
     </div>
+
+    <!-- Right Side: Image -->
+    <div class="col-md-6 order-1 order-md-2 text-center">
+        <img src="{{ asset('images/pic1.jpg') }}" alt="Career Development" class="hero-image img-fluid">
+    </div>
 </div>
+
 
 <div class="text-center py-5 bg-light">
     <h1 class="fw-bold">Welcome to Board Search</h1>

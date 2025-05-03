@@ -13,17 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('job_address', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('phone')->nullable();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->text('country');
+            $table->text('city');
+            $table->text('district');
+            $table->text('street');
+            $table->foreignId('job_id')->constrained('jobs')->onDelete('cascade');
             $table->timestamps();
-            $table->integer('role')->default(2); // 1 = Employer, 2 = Jobseeker
-
         });
     }
 
@@ -34,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('job_address');
     }
 };
