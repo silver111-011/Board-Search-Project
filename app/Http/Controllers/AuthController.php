@@ -31,11 +31,10 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        // Log user in
-        Auth::login($user);
+ 
 
-        // Redirect based on role
-        return $this->redirectToDashboard($user);
+        // Redireclogin
+        return redirect()->route('login');
     }
 
     public function login(Request $request)

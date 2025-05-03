@@ -41,5 +41,11 @@ Route::get('employer/all/jobs',[EmployeersController::class,'allJobs'])->name('e
 Route::get('employer/logout',[EmployeersController::class,'logout'])->name('employer.logout');
 });   
 
+//routes for admin
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('admin/dashboard',[EmployeersController::class,'dashboard'])->name('admin.dashboard');
+
+});  
+
 
 
