@@ -110,7 +110,7 @@
                         <div class="mb-3">
                             <label for="role" class="form-label">Role</label>
                             <select name="role" class="form-control" required>
-                                <option value="employeer">Employer</option>
+                                <option value="employer">Employer</option>
                                 <option value="jobseeker">Job Seeker</option>
                             </select>
                         </div>
