@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -43,7 +44,7 @@ Route::get('employer/logout',[EmployeersController::class,'logout'])->name('empl
 
 //routes for admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('admin/dashboard',[EmployeersController::class,'dashboard'])->name('admin.dashboard');
+    Route::get('admin/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
 
 });  
 
