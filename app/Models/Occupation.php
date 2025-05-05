@@ -14,7 +14,8 @@ class Occupation extends Model
         'description',
         'salary',
         'employer_id',
-        'is_closed'
+        'is_closed',
+        'is_verified'
     ];
     public function employer(){
         return $this->belongsTo(User::class,'employer_id','id');
@@ -25,4 +26,10 @@ class Occupation extends Model
     public function jobAddress(){
         return $this->hasOne(JobLocation::class,'job_id','id');
     }
+
+    public function jobCategories(){
+        return $this->hasMany(JobCategory::class,'job_id','id');
+    }
+
+    
 }

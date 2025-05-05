@@ -43,8 +43,8 @@
                 <h5 class="mb-0">User Management</h5>
             </div>
             <div class="card-body">
-                <a href="#" class="btn btn-outline-primary mb-2">View All Employers</a>
-                <a href="#" class="btn btn-outline-success mb-2">View All Job Seekers</a>
+                <a href="{{ route('admin.employersview') }}" class="btn btn-outline-primary mb-2">View All Employers</a>
+                <a href="{{ route('admin.jobSeekersView') }}" class="btn btn-outline-success mb-2">View All Job Seekers</a>
             </div>
         </div>
     
@@ -53,21 +53,11 @@
                 <h5 class="mb-0">Job Control</h5>
             </div>
             <div class="card-body">
-                <a href="#" class="btn btn-outline-info mb-2">View All Job Posts</a>
-                <a href="#" class="btn btn-outline-danger mb-2">Remove Inappropriate Jobs</a>
+                <a href="{{ route('admin.jobcontrol') }}" class="btn btn-outline-info mb-2">Manage  Job Posts</a>
+     
             </div>
         </div>
     
-        <!-- System Controls -->
-        <div class="card shadow-sm">
-            <div class="card-header bg-dark text-white">
-                <h5 class="mb-0">System Settings</h5>
-            </div>
-            <div class="card-body">
-                <a href="#" class="btn btn-outline-secondary">Settings</a>
-                <a href="#" class="btn btn-outline-warning">Logs & Reports</a>
-            </div>
-        </div>
     </div>
 
   </div>

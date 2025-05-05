@@ -66,17 +66,12 @@
 
       <ul class="nav nav-pills flex-column px-2" style="margin-left: -10px;">
         <li class="nav-item">
-          <a class="nav-link" href="">
+          <a class="nav-link" href="{{ route('admin.dashboard') }}">
             <span class="icon" data-bs-toggle="tooltip" data-bs-title="Dashboard"><i class="fas fa-dashboard"></i></span>
             <span class="menu">Dashboard</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="">
-            <span class="icon"  data-bs-toggle="tooltip" data-bs-title="Applicants"><i class="fas fa-cube"></i></span>
-            <span class="menu">Assign Payment Fee</span>
-          </a>
-        </li>
+     
         
         <li class="nav-item">
           <a class="nav-link" href="">

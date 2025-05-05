@@ -45,6 +45,17 @@ Route::get('employer/logout',[EmployeersController::class,'logout'])->name('empl
 //routes for admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('admin/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
+    Route::get('admin/employers/view',[AdminController::class,'employersView'])->name('admin.employersview');
+    Route::get('admin/block/unblock/{id}/{status}',[AdminController::class,'blockUnblock'])->name('admin.blockUnblock');
+    Route::get('employer/charges/{id}',[AdminController::class,'employerchargesForm'])->name('admin.employerchargesForm');
+    Route::post('employer/charges/post/form/{id}',[AdminController::class,'employerchargesFormPost'])->name('admin.employerchargesFormPost');
+    Route::post('employer/charges/edit/form/{id}',[AdminController::class,'employerchargesFormEdit'])->name('admin.employerchargesFormEdit');
+    Route::get('admin/job/sekeers',[AdminController::class,'jobSeekersView'])->name('admin.jobSeekersView');
+    Route::get('admin/job/control',[AdminController::class,'jobsView'])->name('admin.jobcontrol');
+    Route::get('admin/job/deatils/{id}',[AdminController::class,'jobsDetails'])->name('admin.jobDetail');
+    Route::get('admin/job/delete/{id}',[AdminController::class,'jobDelete'])->name('admin.jobDelete');
+  
+    
 
 });  
 

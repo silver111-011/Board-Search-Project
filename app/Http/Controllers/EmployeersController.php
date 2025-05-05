@@ -63,6 +63,7 @@ class EmployeersController extends Controller
             'description' => $request->description,
             'salary' => $request->salary,
             'is_closed' => 0,
+            'is_verified' => 0,
             'employer_id' => Auth::id()
         ]);
 
