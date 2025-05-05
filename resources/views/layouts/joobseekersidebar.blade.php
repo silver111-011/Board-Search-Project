@@ -16,7 +16,7 @@
    
     .sidebar {
 
-      background: linear-gradient(135deg, rgba(5, 50, 120, 0.6), rgba(10, 80, 50, 0.6), rgba(0, 0, 0, 0.95));
+      background: linear-gradient(135deg, rgba(13, 110, 253, 0.9), rgba(25, 135, 84, 0.9));
       overflow: hidden;
       height: 117vh;
     }
@@ -66,15 +66,25 @@
 
       <ul class="nav nav-pills flex-column px-2" style="margin-left: -10px;">
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('admin.dashboard') }}">
+          <a class="nav-link" href="{{ route('jobseeker.dashboard') }}">
             <span class="icon" data-bs-toggle="tooltip" data-bs-title="Dashboard"><i class="fas fa-dashboard"></i></span>
             <span class="menu">Dashboard</span>
           </a>
         </li>
-     
-        
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('admin.logout') }}">
+          <a class="nav-link" href="">
+            <span class="icon"  data-bs-toggle="tooltip" data-bs-title="Applicants"><i class="fas fa-cube"></i></span>
+            <span class="menu">Applicants</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="">
+            <span class="icon"  data-bs-toggle="tooltip" data-bs-title="Job Posts"><i class="fas fa-cube"></i></span>
+            <span class="menu">Job Posts</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="">
             <span class="icon"><i class="fas fa-sign-out"></i></span>
             <span class="menu">Logout</span>
           </a>
@@ -116,7 +126,7 @@
               </a>
 
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="{{ route('admin.logout') }}"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a> </li>
+                <li><a class="dropdown-item" href=""><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a> </li>
 
               </ul>
             </div>

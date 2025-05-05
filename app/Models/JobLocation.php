@@ -14,6 +14,7 @@ class JobLocation extends Model
         'city',
         'district',
         'street',
-        'job_id'
+        'job_id',
+        'is_closed',
     ];
 }

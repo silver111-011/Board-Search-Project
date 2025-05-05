@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployeersController;
+use App\Http\Controllers\JobseekersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,10 +55,18 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('admin/job/control',[AdminController::class,'jobsView'])->name('admin.jobcontrol');
     Route::get('admin/job/deatils/{id}',[AdminController::class,'jobsDetails'])->name('admin.jobDetail');
     Route::get('admin/job/delete/{id}',[AdminController::class,'jobDelete'])->name('admin.jobDelete');
+    Route::get('admin/logout',[AdminController::class,'logout'])->name('admin.logout');
   
-    
+}); 
 
-});  
+Route::middleware(['auth', 'role:jobseeker'])->group(function () {
+    Route::get('job/seeker/dashboard',[JobseekersController::class,'dashboard'])->name('jobseeker.dashboard');
+    Route::get('job/description',[JobseekersController::class,'jobdescription'])->name('jobseeker.jobdescription');
+    Route::get('job/seeker/additions',[JobseekersController::class,'additions'])->name('jobseeker.additions');
+    Route::post('job/seeker/additions/post',[JobseekersController::class,'additionspost'])->name('jobseeker.additionspost');
+
+}); 
+
 
 
 

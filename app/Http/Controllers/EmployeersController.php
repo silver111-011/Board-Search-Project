@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeersController extends Controller
 {
@@ -57,13 +58,26 @@ class EmployeersController extends Controller
 
         // Assign to variables if needed
         [$country, $city, $district, $street] = $addressParts;
-
+         //Update video if uploaded
+         if ($request->hasFile('jobdocument')) {
+            $file = $request->file('jobdocument');
+        
+            // Check MIME type or extension
+            if ($file->getClientOriginalExtension() !== 'pdf') {
+                return back()->with('fail', 'Only PDF files are allowed.');
+            }
+            // Optionally delete old file here...
+            // Store the PDF
+           $jobdocumentpath = $file->store('Job-documents');
+        }
+        
         $occupation = Occupation::create([
             'title' => ucfirst($request->title),
             'description' => $request->description,
             'salary' => $request->salary,
             'is_closed' => 0,
             'is_verified' => 0,
+            'pdf_path' => $jobdocumentpath,
             'employer_id' => Auth::id()
         ]);
 
@@ -84,6 +98,7 @@ class EmployeersController extends Controller
             'city' => ucfirst($city),
             'district' => ucfirst($district),
             'street' => ucfirst($street),
+            'is_closed' => 0,
             'job_id' => $occupation->id, // add this if JobLocation is related to a job
         ]);
 
@@ -94,15 +109,36 @@ class EmployeersController extends Controller
     public function editjobsform($jobId)
     {
         $request = request();
+        $occupation = Occupation::findOrFail($jobId);
         $addressParts = explode(',', $request->address);
 
         if (count($addressParts) !== 4) {
             return back()->with('fail', 'Address must follow the format: country,city,district,street');
         }
+       
+        if ($request->hasFile('jobdocument')) {
+        
+            $file = $request->file('jobdocument');
+            // Check if it's a PDF
+            if ($file->getClientOriginalExtension() !== 'pdf') {
+                return back()->with('fail', 'Only PDF files are allowed.');
+            }
+            //  delete old file if it exists
+            if ($occupation->pdf_path) {
+                Storage::delete($occupation->pdf_path);
+            }
+            // Store the new file
+            $jobdocumentpath = $file->store('Job-documents');
+        
+            // Update job document path in database (if needed)
+            $occupation->pdf_path = $jobdocumentpath;
+           
+        }
+        
 
         // Assign to variables if needed
         [$country, $city, $district, $street] = $addressParts;
-        $occupation = Occupation::findOrFail($jobId);
+
         $occupation->title = $request->title;
         $occupation->description = $request->description;
         $occupation->salary = $request->salary;
@@ -177,8 +213,7 @@ class EmployeersController extends Controller
         $occupations = Occupation::where('employer_id', Auth::id())->paginate(10);
         return view('employer.jobpostsView',compact('occupations'));
     }
-
-       
+     
     public function logout()
     {
         Auth::logout();

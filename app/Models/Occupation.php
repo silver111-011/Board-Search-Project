@@ -15,7 +15,8 @@ class Occupation extends Model
         'salary',
         'employer_id',
         'is_closed',
-        'is_verified'
+        'is_verified',
+        'pdf_path',
     ];
     public function employer(){
         return $this->belongsTo(User::class,'employer_id','id');

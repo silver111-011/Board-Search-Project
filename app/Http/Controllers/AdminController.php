@@ -7,6 +7,7 @@ use App\Models\Occupation;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -80,5 +81,11 @@ class AdminController extends Controller
         $job = Occupation::find($id);
         $job->delete();
         return redirect()->route('admin.jobcontrol')->with('success','deletion successfull');
+     }
+
+     public function logout()
+     {
+         Auth::logout();
+         return redirect()->route('login');
      }
 }

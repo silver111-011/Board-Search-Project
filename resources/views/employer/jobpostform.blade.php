@@ -4,7 +4,7 @@
 
 @section('content')
 <main class="bg-secondary bg-opacity-25 min-vh-100 py-4 px-3">
-
+  <div class="flex-md-row holder  noscrollbar noscrollbarfire" style="height: 90vh; overflow-y: scroll;">
   <div class="container">
     @if($job->id == null)
     <h3 class="fw-bold mb-4 text-primary">Post a New Job</h3>
@@ -12,7 +12,7 @@
     <h3 class="fw-bold mb-4 text-primary">Edit {{ $job->title }}</h3>
     @endif
 
-    <form action="{{$job->id? route('employer.editjobsform',$job->id): route('employer.submitjobsform') }}" method="POST" class="card shadow-sm p-4 bg-white rounded">
+    <form action="{{$job->id? route('employer.editjobsform',$job->id): route('employer.submitjobsform') }}" method="POST" class="card shadow-sm p-4 bg-white rounded" enctype="multipart/form-data">
       @csrf
       @if(Session::has('fail'))
       <div class="text-danger  text-center mt-1">{{Session::get('fail')}}</div>
@@ -66,6 +66,15 @@
         <input type="text" name="address" id="address" class="form-control border border-2 border-primary-subtle" placeholder="Enter work location" required>
         @else
         <input type="text" name="address" id="address" class="form-control border border-2 border-primary-subtle" value="{{ $job->jobAddress->country.', '.$job->jobAddress->city.', '.$job->jobAddress->district.', '.$job->jobAddress->street }}">
+        @endif
+      </div>
+
+      <div class="mb-3">
+        <label for="address" class="form-label fw-semibold text-dark">Attach PDF</label>
+        @if($job->id == null)
+        <input type="file" name="jobdocument" accept=".pdf" class="form-control border border-2 border-primary-subtle" placeholder="Enter work location" required>
+        @else
+        <input type="file" name="jobdocument" accept=".pdf" class="form-control border border-2 border-primary-subtle" placeholder="Enter work location">
         @endif
       </div>
 
