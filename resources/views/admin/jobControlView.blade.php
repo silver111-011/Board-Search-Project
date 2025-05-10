@@ -19,10 +19,10 @@
       </div>
       @if($jobs->count() > 0)
       <div class="col-sm-12">
-        <form action="" method="post" class="mb-3">
+        <form action="{{ route('admin.jobcontrolsearch') }}" method="post" class="mb-3">
             @csrf
             <div class="input-group">
-                <input type="text" name="searchinput" class="search-input form-control" placeholder="Search Applicant"
+                <input type="text" name="searchinput" class="search-input form-control" placeholder="Search Job"
                     required autocomplete="on" style="border: 2px solid #4e4d4d;border-right: none;border-radius: 15px 0 0 15px;outline: none;height: 41px;padding-left: 10px;">
                 <button class="search-button" type="submit">
                     <i class="fa fa-search" aria-hidden="true"></i>
@@ -61,7 +61,7 @@
               <td>{{ $job->salary }}</td>
               <td>{{ date_format($job->created_at, 'd-m-Y') }}</td>
               <td>{{ $job->employer->name }}</td>
-              <td><a href="{{ route('admin.jobDetail',$job->id) }}" class="btn btn-outline-success mb-2">View More</a></td>
+              <td><a href="{{ route('admin.jobdetailAdmin',$job->id) }}" class="btn btn-outline-success mb-2">View More</a></td>
 
             </tr>
             @endforeach
@@ -74,7 +74,7 @@
         </div>
           @else
         
-          <h5 class="text-info text-center">No any jobs yet</h5>
+          <h5 class="text-info text-center">No any Unverified job yet</h5>
           @endif
        
         </div>

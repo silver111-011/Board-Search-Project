@@ -47,4 +47,8 @@ class User extends Authenticatable
     public function charges(){
         return $this->hasOne(EmployerCharge::class,'employer_id','id');
     }
+
+    public function employeeMoreDetails(){
+        return $this->hasOne(JobseekerMoreDetail::class,'jobseeker_id','id');
+    }
 }

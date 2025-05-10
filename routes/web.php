@@ -40,6 +40,12 @@ Route::get('close/open/jon/{jobId}/{status}',[EmployeersController::class,'close
 Route::post('delete/job/{jobId}',[EmployeersController::class,'deleteJob'])->name('employer.deleteJob');
 Route::get('employer/applicant',[EmployeersController::class,'employerAplicants'])->name('employer.employerAplicants');
 Route::get('employer/all/jobs',[EmployeersController::class,'allJobs'])->name('employer.allJobs');
+Route::get('applicant/details/{applicantid}/{jobid}',[EmployeersController::class,'applicantDetails'])->name('employer.applicantDetails');
+Route::get('recruit/disqualify/{applicantid}/{jobid}/{action}',[EmployeersController::class,'recruitDisqualify'])->name('employer.recruitDisqualify');
+Route::post('employee/applicant/search/{id}',[EmployeersController::class,'jobApplicantsearch'])->name('employer.jobApplicantsearch');
+Route::post('employer/all/job/search',[EmployeersController::class,'allJobsearch'])->name('employer.jobssearch');
+Route::get('employer/job/detail/{id}',[EmployeersController::class,'jobDetail'])->name('employer.jobDetail');
+Route::post('employer/applicant/search',[EmployeersController::class,'employerAplicantsearch'])->name('employer.Aplicantsearch');
 Route::get('employer/logout',[EmployeersController::class,'logout'])->name('employer.logout');
 });   
 
@@ -55,15 +61,38 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('admin/job/control',[AdminController::class,'jobsView'])->name('admin.jobcontrol');
     Route::get('admin/job/deatils/{id}',[AdminController::class,'jobsDetails'])->name('admin.jobDetail');
     Route::get('admin/job/delete/{id}',[AdminController::class,'jobDelete'])->name('admin.jobDelete');
+    Route::post('employer/search',[AdminController::class,'employersearch'])->name('admin.employersearch');
+    Route::post('jobseekers/search',[AdminController::class,'jobSeekersearch'])->name('admin.jobSeekersearch');
+    Route::post('jobs/search',[AdminController::class,'jobsearch'])->name('admin.jobsearch');
+    Route::get('admin/job/detail/{id}',[AdminController::class,'jobdetailAdmin'])->name('admin.jobdetailAdmin');
+    Route::post('delete/job/admin/{jobId}',[AdminController::class,'deleteJob'])->name('admin.deleteJob');
+    Route::get('verify/job/admin/{jobId}',[AdminController::class,'verifyjob'])->name('admin.verifyjob');
+    Route::post('unverified/jobs/search',[AdminController::class,'jobcontrolsearch'])->name('admin.jobcontrolsearch');
     Route::get('admin/logout',[AdminController::class,'logout'])->name('admin.logout');
   
 }); 
 
 Route::middleware(['auth', 'role:jobseeker'])->group(function () {
     Route::get('job/seeker/dashboard',[JobseekersController::class,'dashboard'])->name('jobseeker.dashboard');
-    Route::get('job/description',[JobseekersController::class,'jobdescription'])->name('jobseeker.jobdescription');
+    Route::get('job/description/{id}',[JobseekersController::class,'jobdescription'])->name('jobseeker.jobdescription');
     Route::get('job/seeker/additions',[JobseekersController::class,'additions'])->name('jobseeker.additions');
     Route::post('job/seeker/additions/post',[JobseekersController::class,'additionspost'])->name('jobseeker.additionspost');
+    Route::get('application/form/{jobid}',[JobseekersController::class,'applicationForm'])->name('jobseeker.applicationForm');
+    Route::get('application/form/{jobid}',[JobseekersController::class,'applicationForm'])->name('jobseeker.applicationForm');
+    Route::post('application/form/post/{jobid}',[JobseekersController::class,'applicationFormPost'])->name('jobseeker.applicationFormPost');
+    Route::post('application/withdraw/{jobid}',[JobseekersController::class,'applicationWithdraw'])->name('jobseeker.applicationWithdraw');
+    Route::get('all/jobs',[JobseekersController::class,'allJobs'])->name('jobseeker.allJobs');
+    Route::get('all/recommanded/jobs',[JobseekersController::class,'allRecommandedJobs'])->name('allRecommandedJobs');
+    Route::get('edit/profile',[JobseekersController::class,'editprofile'])->name('jobseeker.editprofile');
+    Route::post('edit/profile/post',[JobseekersController::class,'editprofilepost'])->name('jobseeker.editprofilepost');
+    Route::get('all/applicantions',[JobseekersController::class,'allapplications'])->name('jobseeker.allapplicantions');
+    Route::get('jobview/forall/application/{id}',[JobseekersController::class,'jobviewforallapplication'])->name('jobviewforallapplication');
+    Route::post('recommended/job/search',[JobseekersController::class,'recommendedJobSearch'])->name('jobseeker.recommendedJobSearch');
+    Route::post('all/job/search',[JobseekersController::class,'allJobsSearch'])->name('jobseeker.allJobsSearch');
+    Route::post('all/job/search',[JobseekersController::class,'allApplicationsSearch'])->name('jobseeker.allApplicationsSearch');
+    Route::get('jobseeker/logout',[JobseekersController::class,'logout'])->name('jobseeker.logout');
+   
+    
 
 }); 
 

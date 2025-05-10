@@ -1,6 +1,6 @@
-@extends('layouts.joobseekersidebar')
+@extends('layouts.sidebar')
 
-@section('title', 'Job Seeker Dashboard')
+@section('title', 'Job Detail')
 
 @section('content')
 <main class="bg-secondary bg-opacity-25 min-vh-100 py-4 px-3">
@@ -28,15 +28,6 @@
                 </a>
             @endif
 
-            <div class="mt-4 d-flex justify-content-between">
-                <a href="{{ route('jobseeker.dashboard') }}" class="btn btn-secondary">Back to Listings</a>
-                @if($has_applied)
-                <a href="{{route('jobseeker.applicationForm',$job->id)}}" class="btn btn-success">Edit Attachments</a>
-                @else
-                <a href="{{route('jobseeker.applicationForm',$job->id)}}" class="btn btn-success">Apply Now</a>
-                @endif
-                
-            </div>
         </div>
     </div>
 </div>

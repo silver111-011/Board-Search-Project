@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\JobCategory;
 use App\Models\JobLocation;
 use App\Models\Occupation;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -172,7 +173,7 @@ class EmployeersController extends Controller
 
     public function jobApplicants($jobId)
     {
-        $applicants = ApplicantJob::with('applicant')->where('job_id', $jobId)->paginate(10);
+        $applicants = ApplicantJob::with('applicant.employeeMoreDetails')->where('job_id', $jobId)->paginate(10);
         $job = Occupation::findOrFail($jobId);
         return view('employer.jobapplicantsview', compact('applicants', 'job'));
     }
@@ -193,18 +194,24 @@ class EmployeersController extends Controller
 
     public function deleteJob($jobid)
     {
+        //if job has applicant
+        $exist = ApplicantJob::where('job_id',$jobid)->exists();
+        if($exist){
+            return back()->with('fail','This job has applicants');
+        }
         $job = Occupation::find($jobid);
         $job->delete();
         return redirect()->route('employer.dashboard');
     }
 
     public function employerAplicants(){
-        $applicants = ApplicantJob::with(['applicant', 'occupation'])
-        ->whereHas('occupation', function ($query) {
-            $query->where('employer_id', Auth::id());
-        })
-        ->orderBy('occupation.title', 'asc')
+        $applicants = ApplicantJob::with(['applicant.employeeMoreDetails', 'occupation'])
+        ->join('jobs', 'applicatnt_jobs.job_id', '=', 'jobs.id')
+        ->where('jobs.employer_id', Auth::id())
+        ->orderBy('jobs.title', 'asc')
+        ->select('applicatnt_jobs.*') // important: select only main table columns to avoid conflicts
         ->paginate(10);
+    
 
         return view('employer.applicantsView', compact('applicants'));
     }
@@ -213,7 +220,73 @@ class EmployeersController extends Controller
         $occupations = Occupation::where('employer_id', Auth::id())->paginate(10);
         return view('employer.jobpostsView',compact('occupations'));
     }
+
+    public function applicantDetails($applicantid, $jobid){
+        $jobseeker = User::with('employeeMoreDetails')->find($applicantid);
+        $job = Occupation::find($jobid);
+        return view('employer.applicantdetailview',compact('jobseeker','job'));
+    }
      
+
+    public function recruitDisqualify($applicantid,$jobid,$action){
+        $jobapplicant = ApplicantJob::where([['job_id',$jobid],['applicant_id',$applicantid]])->first();
+        if($action == 0){
+           $jobapplicant->status = 3;
+           $jobapplicant->save();
+           return redirect()->route('employer.jobApplicants',$jobid);
+        }else{
+            $jobapplicant->status = 1;
+            $jobapplicant->save();
+            return redirect()->route('employer.jobApplicants',$jobid);
+        }
+
+    }
+
+    public function jobApplicantsearch($jobId)
+    {
+        $search = request('searchinput'); // or however you're getting the search input
+
+        $applicants = ApplicantJob::with('applicant.employeeMoreDetails')
+            ->where('job_id', $jobId)
+            ->whereHas('applicant', function ($query) use ($search) {
+                if ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                }
+            })
+            ->paginate(10);
+        
+        $job = Occupation::findOrFail($jobId);
+        return view('employer.jobapplicantsview', compact('applicants', 'job'));
+    }
+
+    public function allJobsearch(){
+        $request = request();
+        $search = request('searchinput'); // or however you're getting the search input
+        $occupations = Occupation::where('employer_id', Auth::id())->where('title', 'like', '%' . $search . '%')->paginate(10);
+        return view('employer.jobpostsView',compact('occupations'));
+    }
+
+    public function jobDetail($id){
+        $job = Occupation::with('jobAddress')->find($id);
+        return view('employer.jobDetail',  compact('job'));
+
+    }
+
+    public function employerAplicantsearch(){
+        $search = request('searchinput');
+        $applicants = ApplicantJob::with(['applicant.employeeMoreDetails', 'occupation'])
+        ->join('jobs', 'applicatnt_jobs.job_id', '=', 'jobs.id')
+        ->where('jobs.employer_id', Auth::id())
+        ->join('users', 'applicatnt_jobs.applicant_id', '=', 'users.id')
+        ->where('users.name', 'like', '%' . $search . '%')
+        ->orderBy('jobs.title', 'asc')
+        ->select('applicatnt_jobs.*') // important: select only main table columns to avoid conflicts
+        ->paginate(10);
+    
+
+        return view('employer.applicantsView', compact('applicants'));
+    }
+
     public function logout()
     {
         Auth::logout();

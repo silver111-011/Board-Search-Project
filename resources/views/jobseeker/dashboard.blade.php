@@ -8,14 +8,15 @@
     <div class="flex-md-row holder  noscrollbar noscrollbarfire" style="height: 90vh; overflow-y: scroll;">
         <div class="container mt-4">
             <div class="d-flex justify-content-between align-items-center">
-                <h2 class="fw-bold">Technical Support Engineer</h2>
-                <a href="" class="btn btn-success">+ Apply for a Job</a>
+                <h2 class="fw-bold">Employee Dashboard</h2>
+                <a href="{{ route('jobseeker.allJobs') }}" class="btn btn-success">+ Apply for a Job</a>
             </div>
-        
+
             <p class="text-muted">Find and apply for jobs that match your skills.</p>
-           @if($additionInfo == 0)
-             <h4 class="text-danger text-center">You have not yet filled additional information, Click <a href="{{ route('jobseeker.additions') }}">Here</a> to fill</h4>
-           @endif
+            @if($additionInfo == 0)
+            <h4 class="text-danger text-center">You have not yet filled additional information, Click <a
+                    href="{{ route('jobseeker.additions') }}">Here</a> to fill</h4>
+            @endif
             <!-- Job Recommendations Section -->
             <div class="card mt-4 shadow-sm">
                 <div class="card-header bg-success text-white">
@@ -23,7 +24,8 @@
                 </div>
                 <div class="card-body">
                     @if($recommendedJobs->count() > 0)
-                    <table class="table table-hover">
+                    <div class="table-responsive noscrollbar noscrollbarfire">
+                        <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>Job Title</th>
@@ -38,37 +40,49 @@
                             <tr>
                                 <td>{{ $job->title }}</td>
                                 <td>{{ number_format($job->salary) }}</td>
-                                <td>{{ $job->jobAddress->city }}</td>
+                                <td>{{ $job->jobAddress->country }}</td>
                                 <td>{{ date_format($job->created_at, 'd-m-Y') }}</td>
                                 <td>
-                                <a href="{{ route('jobseeker.jobdescription') }}" class="btn btn-sm btn-outline-primary">View</a>
-        
-                                    <a href="#" class="btn btn-sm btn-outline-success">Apply</a>
+                                    <a href="{{ route('jobseeker.jobdescription',$job->id) }}"
+                                        class="btn btn-sm btn-outline-primary">View</a>
+
+                                    <a href="{{route('jobseeker.applicationForm',$job->id)}}" class="btn btn-sm btn-outline-success">Apply</a>
                                 </td>
-                            </tr> 
+                            </tr>
                             @endforeach
-                          
-                          
+
+
                             <!-- More job listings -->
                         </tbody>
                     </table>
+                    </div>
                     @endif
                     <center>
-                        <a href="" class="text-center mb-2 "><---------View All--------></a>
+                        <a href="{{ route('allRecommandedJobs') }}" class="text-center mb-2 ">
+                            <---------View All-------->
+                        </a>
                     </center>
-                
+
                 </div>
-                
+
             </div>
-        
+            @if(Session::has('fail'))
+            <div class="text-danger  text-center mt-1">{{Session::get('fail')}}</div>
+            @endif
+            @if(Session::has('success'))
+            <div class="text-success  text-center mt-1">{{Session::get('success')}}</div>
+            @endif
+
             <!-- Application Status Section -->
             <div class="card mt-4 shadow-sm">
                 <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">Your Applications</h5>
+                    <h5 class="mb-0">My Applications</h5>
                 </div>
                 <div class="card-body">
                     @if($myapplication->count() > 0)
-                    <table class="table table-hover">
+                    <div class="table-responsive noscrollbar noscrollbarfire">
+                        <table class="table table-hover">
+           
                         <thead>
                             <tr>
                                 <th>Job Title</th>
@@ -79,8 +93,8 @@
                         </thead>
                         <tbody>
                             @foreach ($myapplication as $application)
-                                
-                          
+
+
                             <tr>
                                 <td>{{ $application->occupation->title }}</td>
                                 <td>{{ $application->occupation->salary }}</td>
@@ -91,22 +105,52 @@
                                 @endif
                                 @if($application->status == 0)
                                 <td>
-                                <a href="" class="btn btn-sm btn-outline-primary">View</a>
-        
-                                    <a href="#" class="btn btn-sm btn-outline-danger">Withdraw</a>
+                                    <a href="{{ route('jobseeker.jobdescription',$application->occupation->id) }}" class="btn btn-sm btn-outline-primary">View</a>
+
+                                    <a href="#"class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal-{{ $application->id }}">Withdraw</a>
+                                    <!-- Delete Confirmation Modal -->
+                                    <div class="modal fade" id="deleteModal-{{ $application->id }}"  tabindex="-1"
+                                        aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content border-danger">
+                                                <div class="modal-header bg-danger text-white">
+                                                    <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p class="mb-0">⚠️ Are you sure you want to withdraw this application?
+                                                        This action cannot be undone.</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Cancel</button>
+                                                         <form action="{{ route('jobseeker.applicationWithdraw', $application->occupation->id) }}" method="post"> 
+                                                            @csrf
+                                                        <button type="submit"  class="btn btn-danger"
+                                                            data-bs-dismiss="modal">Withdraw</button>
+                                              
+                                                        </form>
+                                               
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                                 @else
-                                <a href="" class="btn btn-sm btn-outline-primary">View</a>
+                                <a href="{{ route('jobseeker.jobdescription',$application->occupation->id) }}" class="btn btn-sm btn-outline-primary">View</a>
                                 @endif
                             </tr>
                             @endforeach
                             <!-- More applications -->
                         </tbody>
                     </table>
+                    </div>
                     @endif
                 </div>
             </div>
-        
+
             <!-- Quick Stats Section -->
             <div class="row mt-4">
                 <div class="col-md-4">
@@ -130,5 +174,5 @@
             </div>
         </div>
     </div>
-  </main>
+</main>
 @endsection

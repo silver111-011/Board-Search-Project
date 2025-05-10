@@ -72,19 +72,14 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="">
-            <span class="icon"  data-bs-toggle="tooltip" data-bs-title="Applicants"><i class="fas fa-cube"></i></span>
-            <span class="menu">Applicants</span>
+          <a class="nav-link" href="{{ route('jobseeker.allapplicantions') }}">
+            <span class="icon"  data-bs-toggle="tooltip" data-bs-title="All Applicantions"><i class="fas fa-cube"></i></span>
+            <span class="menu">All Applicantions</span>
           </a>
         </li>
+   
         <li class="nav-item">
-          <a class="nav-link" href="">
-            <span class="icon"  data-bs-toggle="tooltip" data-bs-title="Job Posts"><i class="fas fa-cube"></i></span>
-            <span class="menu">Job Posts</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="">
+          <a class="nav-link" href="{{ route('jobseeker.logout') }}">
             <span class="icon"><i class="fas fa-sign-out"></i></span>
             <span class="menu">Logout</span>
           </a>
@@ -126,7 +121,12 @@
               </a>
 
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href=""><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a> </li>
+                <li>
+                  <a class="dropdown-item" href="{{ route('jobseeker.editprofile') }}">
+                    <i class="fas fa-user-edit me-2"></i>Edit Profile
+                  </a>
+                </li>
+                <li><a class="dropdown-item" href="{{ route('jobseeker.logout') }}"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a> </li>
 
               </ul>
             </div>

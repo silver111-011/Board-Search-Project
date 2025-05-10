@@ -12,4 +12,6 @@ class JobseekerMoreDetail extends Model
     public function jobseeker(){
         return $this->belongsTo(User::class,'jobseeker_id','id');
     }
+
+    
 }

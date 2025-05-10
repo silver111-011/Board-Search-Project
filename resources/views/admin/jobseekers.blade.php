@@ -19,7 +19,7 @@
       </div>
       @if($jobSeekers->count() > 0)
       <div class="col-sm-12">
-        <form action="" method="post" class="mb-3">
+        <form action="{{ route('admin.jobSeekersearch') }}" method="post" class="mb-3">
             @csrf
             <div class="input-group">
                 <input type="text" name="searchinput" class="search-input form-control" placeholder="Search Applicant"

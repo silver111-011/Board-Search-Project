@@ -19,10 +19,10 @@
       </div>
       @if($employers->count() > 0)
       <div class="col-sm-12">
-        <form action="" method="post" class="mb-3">
+        <form action="{{ route('admin.employersearch') }}" method="post" class="mb-3">
             @csrf
             <div class="input-group">
-                <input type="text" name="searchinput" class="search-input form-control" placeholder="Search Applicant"
+                <input type="text" name="searchinput" class="search-input form-control" placeholder="Search Employer"
                     required autocomplete="on" style="border: 2px solid #4e4d4d;border-right: none;border-radius: 15px 0 0 15px;outline: none;height: 41px;padding-left: 10px;">
                 <button class="search-button" type="submit">
                     <i class="fa fa-search" aria-hidden="true"></i>
@@ -41,59 +41,50 @@
             <h5 class="text-success  text-center mt-1">{{Session::get('success')}}</h5>
             @endif
             @if($employers->count() > 0)
-           <table class="table table-hover align-middle text-nowrap">
-            <thead class="table-light">
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Fee Status</th>
-                <th>Fee Amount (TZS)</th>
-                <th>Blocked Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-        
-         
-            <tr>
-              @foreach ($employers as $employer)
-                  
-             
-              <td>{{ $employer->name }}</td>
-              <td>{{ $employer->email }}</td>
-              @if (!empty($employer->charges))
-              
-              <td class="text-success">{{ 'Assigned' }}</td>
-              <td>{{ $employer->charges->amount}}</td>
-              @else
-              <td class="text-danger">{{ 'Unassigned' }}</td> 
-              <td>{{ '0'}}</td>
-              @endif
-        
-              @if($employer->is_blocked == 0)
-              <td class=" text-success">{{  'not blocked' }}</td>
-              @else
-              <td class="text-danger">{{  'blocked' }}</td>
-              @endif
-  
-              <td>
-                @if($employer->is_blocked == 0)
-                <a href="{{ route('admin.blockUnblock',['id' => $employer->id, 'status' => 1]) }}" class="btn btn-sm btn-outline-danger">Block</a>
-                @else
-                <a href="{{ route('admin.blockUnblock',['id' => $employer->id, 'status' => 0]) }}" class="btn btn-sm btn-outline-success">Unblock</a>
-                @endif
-                @if (!empty($employer->charges))
-                <a href="{{ route('admin.employerchargesForm',$employer->id) }}" class="btn btn-sm btn-outline-secondary">Edit Fee</a>
-                @else
-                <a href="{{ route('admin.employerchargesForm',$employer->id) }}" class="btn btn-sm btn-outline-secondary">Assign Fee</a>
-                @endif
-                
-              </td>
-            </tr>
-            @endforeach
-          
-            </tbody>
-          </table>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Charge Status</th>
+                  <th>Charge Fee (TZS)</th>
+                  <th>Block Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($employers as $employer)
+                <tr>
+                  <td>{{ $employer->name }}</td>
+                  <td>{{ $employer->email }}</td>
+            
+                  @if (!empty($employer->charges))
+                    <td class="text-success">Assigned</td>
+                    <td>{{ $employer->charges->amount }}</td>
+                  @else
+                    <td class="text-danger">Unassigned</td> 
+                    <td>0</td>
+                  @endif
+            
+                  <td class="{{ $employer->is_blocked ? 'text-danger' : 'text-success' }}">
+                    {{ $employer->is_blocked ? 'Blocked' : 'Not Blocked' }}
+                  </td>
+            
+                  <td>
+                    <a href="{{ route('admin.blockUnblock', ['id' => $employer->id, 'status' => $employer->is_blocked ? 0 : 1]) }}" 
+                       class="btn btn-sm {{ $employer->is_blocked ? 'btn-outline-success' : 'btn-outline-danger' }}">
+                       {{ $employer->is_blocked ? 'Unblock' : 'Block' }}
+                    </a>
+            
+                    <a href="{{ route('admin.employerchargesForm', $employer->id) }}" class="btn btn-sm btn-outline-secondary">
+                      {{ $employer->charges ? 'Edit Fee' : 'Assign Fee' }}
+                    </a>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+            
             <!-- Pagination Links -->
         <div>
             {{ $employers->links('pagination::bootstrap-5') }}

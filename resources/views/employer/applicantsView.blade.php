@@ -3,6 +3,9 @@
 @section('title', 'Applicants')
 
 @section('content')
+@php
+    use App\Models\ApplicantJob;
+@endphp
 
 <!-- Your page-specific content here -->
 <main class="bg-secondary bg-opacity-25 min-vh-100">
@@ -18,7 +21,7 @@
       </div>
       @if($applicants->count() > 0)
       <div class="col-sm-12">
-        <form action="" method="post" class="mb-3">
+        <form action="{{ route('employer.Aplicantsearch') }}" method="post" class="mb-3">
             @csrf
             <div class="input-group">
                 <input type="text" name="searchinput" class="search-input form-control" placeholder="Search Applicant"
@@ -46,6 +49,7 @@
                 <th>Gender</th>
                 <th>Marrital Status</th>
                 <th>Job Applied</th>
+                <th>Application Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -57,13 +61,29 @@
                   
              
               <td>{{ $applicant->applicant->name }}</td>
-              <td>{{ $applicant->age }}</td>
+              <td>{{ $applicant->applicant->employeeMoreDetails->age }}</td>
              
-              <td>{{ $applicant->gender }} </td>
-              <td>{{ $applicant->marital_status }} </td>
+              <td>{{ $applicant->applicant->employeeMoreDetails->gender }} </td>
+              @if( $applicant->applicant->employeeMoreDetails->is_married == 0)
+              <td>{{ 'Single' }} </td>
+              @else
+              <td>{{ 'Married' }} </td>
+              @endif
               <td>{{ $applicant->occupation->title }} </td>
+              @php
+              $applicantjob = ApplicantJob::where([['job_id',$applicant->occupation->id],['applicant_id',$applicant->applicant->id]])->first();
+             @endphp
+             @if($applicantjob->status == 0)
+             <td><span class="badge bg-warning">Not Checked</span></td>
+             @endif
+             @if($applicantjob->status == 3)
+             <td><span class="badge bg-danger">Disqualified</span></td>
+             @endif
+             @if($applicantjob->status == 1)
+             <td><span class="badge bg-success">Accepted</span></td>
+             @endif
               <td>
-                <a href="#" class="btn btn-sm btn-outline-info">View More</a>
+                <a href="{{ route('employer.applicantDetails',['applicantid' => $applicant->applicant->id, 'jobid'=>$applicant->occupation->id]) }}" class="btn btn-sm btn-outline-info">View More</a>
               </td>
             </tr>
             @endforeach

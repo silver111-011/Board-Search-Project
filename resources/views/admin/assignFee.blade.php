@@ -13,8 +13,7 @@
     @else
     <h4 class="fw-bold">Edit Fee for{{ ' '.$employer->name }}</h4>
     @endif
-
-    <form action="{{$employer->charges->id?route('admin.employerchargesFormEdit',$employer->id): route('admin.employerchargesFormPost',$employer->id) }}" method="POST" class="card shadow-sm p-4 bg-white rounded">
+    <form action="{{$employer->charges != null?route('admin.employerchargesFormEdit',$employer->id): route('admin.employerchargesFormPost',$employer->id) }}" method="POST" class="card shadow-sm p-4 bg-white rounded">
       @csrf
       @if(Session::has('fail'))
       <div class="text-danger  text-center mt-1">{{Session::get('fail')}}</div>

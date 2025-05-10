@@ -20,7 +20,7 @@
             </div>
             @if($occupations->count() > 0)
             <div class="col-sm-12">
-                <form action="" method="post" class="mb-3">
+                <form action="{{ route('employer.jobssearch') }}" method="post" class="mb-3">
                     @csrf
                     <div class="input-group">
                         <input type="text" name="searchinput" class="search-input form-control"
@@ -68,7 +68,7 @@
                                 @endif
                                 <td>{{ date_format($job->created_at, 'd-m-Y') }}</td>
                                 <td>
-                                    <a href="{{ route('employer.jobApplicants',$job->id) }}"
+                                    <a href="{{ route('employer.jobDetail',$job->id) }}"
                                         class="btn btn-sm btn-outline-info">View</a>
                                     <a href="{{ route('employer.jobsform',$job->id) }}"
                                         class="btn btn-sm btn-outline-warning">Edit</a>

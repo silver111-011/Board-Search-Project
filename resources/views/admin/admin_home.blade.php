@@ -54,6 +54,7 @@
             </div>
             <div class="card-body">
                 <a href="{{ route('admin.jobcontrol') }}" class="btn btn-outline-info mb-2">Manage  Job Posts</a>
+                <a href="" class="btn btn-outline-success mb-2">Manage Job Categories</a>
      
             </div>
         </div>
