@@ -46,6 +46,7 @@ Route::post('employee/applicant/search/{id}',[EmployeersController::class,'jobAp
 Route::post('employer/all/job/search',[EmployeersController::class,'allJobsearch'])->name('employer.jobssearch');
 Route::get('employer/job/detail/{id}',[EmployeersController::class,'jobDetail'])->name('employer.jobDetail');
 Route::post('employer/applicant/search',[EmployeersController::class,'employerAplicantsearch'])->name('employer.Aplicantsearch');
+Route::get('/employer/job/{job}/accepted-applicants-pdf', [EmployeersController::class, 'downloadAcceptedApplicantsPDF'])->name('employer.downloadAcceptedApplicantsPDF');
 Route::get('employer/logout',[EmployeersController::class,'logout'])->name('employer.logout');
 });   
 
@@ -68,6 +69,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('delete/job/admin/{jobId}',[AdminController::class,'deleteJob'])->name('admin.deleteJob');
     Route::get('verify/job/admin/{jobId}',[AdminController::class,'verifyjob'])->name('admin.verifyjob');
     Route::post('unverified/jobs/search',[AdminController::class,'jobcontrolsearch'])->name('admin.jobcontrolsearch');
+    Route::get('view/categories',[AdminController::class,'categoriesView'])->name('admin.categoriesView');
+    Route::get('admin/view/categories/form/{id?}',[AdminController::class,'categoriesFormView'])->name('admin.categoriesformView');
+    Route::post('view/categories/form/post/{id?}',[AdminController::class,'categoriesFormPost'])->name('admin.categoriesFormPost');
+    Route::post('category/delete/{id?}',[AdminController::class,'deleteJobCategory'])->name('admin.deleteJobCategory');
+    Route::post('category/search/{id?}',[AdminController::class,'categorysearch'])->name('admin.categorysearch');
     Route::get('admin/logout',[AdminController::class,'logout'])->name('admin.logout');
   
 }); 

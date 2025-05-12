@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\EmployerCharge;
 use App\Models\Occupation;
 use App\Models\User;
@@ -137,6 +138,52 @@ class AdminController extends Controller
         $jobs = Occupation::with('employer')->where('is_verified', 0)->where('title', 'like', '%' . $search . '%')->paginate(10);
         return view('admin.jobControlView', compact('jobs'));
     }
+
+    public function categoriesView(){
+        $categories = Category::paginate(10);
+        return view('admin.jobcategoriesView', compact('categories'));
+    }
+
+    public function categoriesFormView($id = null){
+        if($id == null){
+            $category = new Category();
+        }else{
+            $category = Category::find($id);
+        }
+
+        return view('admin.categoryForm',compact('category'));
+    }
+
+    public function categoriesFormPost($id = null){
+        $request = request();
+        if($id == null ){
+            $category = new Category();
+            $category->name = ucfirst($request->category);
+            $category->save();
+            return redirect()->route('admin.categoriesView');
+        }else{
+            $category = Category::find($id);
+            $category->name = ucfirst($request->category);
+            $category->save();
+            return redirect()->route('admin.categoriesView');
+
+        }
+ 
+    }
+
+    public function deleteJobCategory($id){
+        $category = Category::find($id);
+        $category->delete();
+        return redirect()->route('admin.categoriesView');
+    }
+
+    public function categorysearch(){
+
+        $search = request('searchinput');
+        $categories = Category::where('name', 'like', '%' . $search . '%')->paginate(10);
+        return view('admin.jobcategoriesView', compact('categories'));
+    }
+
     public function logout()
     {
         Auth::logout();

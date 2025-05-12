@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Job;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+
 
 class EmployeersController extends Controller
 {
@@ -286,6 +291,25 @@ class EmployeersController extends Controller
 
         return view('employer.applicantsView', compact('applicants'));
     }
+
+
+public function downloadAcceptedApplicantsPDF($jobId)
+{
+    $job = Occupation::findOrFail($jobId);
+
+    $acceptedApplicants = ApplicantJob::where('job_id', $jobId)
+        ->where('status', 1)
+        ->with(['applicant','applicant.employeeMoreDetails'])
+        ->get();
+
+    $pdf = PDF::loadView('pdf.accepted_applicants', [
+        'job' => $job,
+        'acceptedApplicants' => $acceptedApplicants
+    ]);
+
+    return $pdf->download('Accepted_Applicants_For_'.$job->title.'.pdf');
+}
+
 
     public function logout()
     {
