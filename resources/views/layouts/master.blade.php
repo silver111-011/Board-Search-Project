@@ -38,8 +38,8 @@
     }
 
     .highlight {
-        color: #4627E6; 
-        background: #A7F3D0; 
+        color: #002366; 
+        background: #ffd700; 
         padding: 5px 10px;
         border-radius: 5px;
     }
@@ -62,7 +62,7 @@
     }
 
     .btn-success {
-        background-color: #00C897;
+        background-color: #ffd700;
         border: none;
     }
 
