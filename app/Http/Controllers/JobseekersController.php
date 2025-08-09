@@ -75,6 +75,8 @@ class JobseekersController extends Controller
         $additions->region = ucfirst($request->region);
         $additions->district = ucfirst($request->district);
         $additions->street = ucfirst($request->street);
+        $additions->age = 0;
+
         $additions->save();
         if (!empty($request->categories)) {
             foreach ($request->categories as $categoryId) {
@@ -96,7 +98,8 @@ class JobseekersController extends Controller
     {
         $job = Occupation::find($id);
         $jobseeker = User::with('employeeMoreDetails')->where('id', Auth::id())->first();
-        return view('jobseeker.applicationpage', compact('job', 'jobseeker'));
+        $additionInfo = JobseekerMoreDetail::where('jobseeker_id', Auth::id())->count();
+        return view('jobseeker.applicationpage', compact('job', 'jobseeker','additionInfo'));
     }
 
     public function applicationFormPost($id)
@@ -351,9 +354,29 @@ class JobseekersController extends Controller
         return view('jobseeker.allapplications', compact('myapplication'));
     }
 
+    public function viewAllJobs(Request $request)
+{
+    $query = Occupation::with('jobAddress', 'jobCategories')
+                ->where('is_closed', false);
+
+    // Filter by category if category_id is passed
+    if ($request->has('category_id')) {
+        $query->whereHas('jobCategories', function($q) use ($request) {
+            $q->where('category_id', $request->category_id);
+        });
+    }
+
+    $jobs = $query->paginate(10);
+    $categories = Category::all();
+
+    return view('jobslist', compact('jobs', 'categories'));
+}
+
+
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login');
+        $jobid = null;
+        return redirect()->route('login',$jobid);
     }
 }

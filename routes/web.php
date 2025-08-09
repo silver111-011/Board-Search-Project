@@ -23,11 +23,14 @@ use App\Http\Controllers\JobseekersController;
 //     return view('welcome');
 // });
 
-Route::view('/', 'index');
-Route::view('/login', 'auth.login')->name('login');
+Route::view('/', 'index')->name('index');
+Route::view('/login/{jobid?}', 'auth.login')->name('login');
 Route::view('/register', 'auth.register')->name('register');
 Route::post('register',[AuthController::class, 'register'])->name('post.register');
-Route::post('login',[AuthController::class, 'login'])->name('post.login');
+Route::post('login/{jobid?}',[AuthController::class, 'login'])->name('post.login');
+Route::get('jobs/list',[JobseekersController::class, 'viewAllJobs'])->name('view.jobs');
+Route::get('/jobs', [JobseekersController::class, 'viewAllJobs'])->name('jobseeker.viewAllJobs');
+
 
 // Routes for employer
 Route::middleware(['auth', 'role:employer'])->group(function () {

@@ -16,7 +16,7 @@
             companies, students, and alumni in a single place to collaborate and grow.
         </p>
         <div class="buttons">
-            <a href="{{ route('login') }}" class="btn btn-success">Search your dream job  →</a>
+            <a href="{{ route('view.jobs') }}" class="btn btn-success">Search your dream job  →</a>
             <a href="{{ route('login') }}" class="btn btn-dark">Hire a talent →</a>
         </div>
     </div>

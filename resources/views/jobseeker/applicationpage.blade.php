@@ -12,7 +12,10 @@
 
             </div>
         
-  
+                @if($additionInfo == 0)
+            <h5 class="text-danger text-center">You have not yet filled additional information, Click <a
+                    href="{{ route('jobseeker.additions') }}">Here</a> to fill</h5>
+            @endif
                 <div class="card shadow">
                     <div class="card-header bg-success text-white">
                         <h4 class="mb-0">Personal information</h4>

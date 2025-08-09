@@ -3,7 +3,11 @@
 @section('title', 'Job Seeker Dashboard')
 
 @section('content')
-
+<style>
+   .ui-datepicker {
+            z-index: 1000 !important;
+        }
+</style>
 <main class="bg-secondary bg-opacity-25 min-vh-100 py-4 px-3">
   <div class="flex-md-row holder  noscrollbar noscrollbarfire" style="height: 90vh; overflow-y: scroll;">
   <div class="container">
@@ -79,7 +83,26 @@
   
       </div>
 
-
+      {{-- gender --}}
+      <div class="mb-3">
+        <label for="title" class="form-label fw-semibold text-dark">Gender</label>
+        @if(empty($jobseeker))
+        <select name="gender" class="form-control" required>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+        @else
+       <select name="gender" class="form-control">
+          <option value="Male">Male</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+        @endif
+    </div>
+    <label for="title" class="form-label fw-semibold text-dark">Date Of Birth</label>
+      <div class="col-md-12">
+                    <input type="text" id="dob" name="dob" class="form-control bg-transparent text-secondary"  required>
+                </div> 
       <!-- Submit Button -->
       <div class="d-grid mt-4">
         @if(empty($jobseeker))
@@ -94,3 +117,17 @@
 
 </main>
 @endsection
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        $(function () {
+            $('#dob').datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1900:2025'
+            });
+        });
+
+        
+    </script>

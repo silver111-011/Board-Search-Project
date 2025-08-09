@@ -82,7 +82,14 @@
         @if(Session::has('fail'))
         <h5 class="text-danger  text-center mt-1">{{Session::get('fail')}}</h5>
         @endif
+        @php
+            $jobid = request()->jobid;
+        @endphp
+        @if($jobid == null)
         <form action="{{ route('post.login') }}" method="POST">
+        @else
+         <form action="{{ route('post.login',$jobid) }}" method="POST">
+        @endif
             @csrf
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>

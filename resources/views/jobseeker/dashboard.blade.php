@@ -14,8 +14,8 @@
 
             <p class="text-muted">Find and apply for jobs that match your skills.</p>
             @if($additionInfo == 0)
-            <h4 class="text-danger text-center">You have not yet filled additional information, Click <a
-                    href="{{ route('jobseeker.additions') }}">Here</a> to fill</h4>
+            <h5 class="text-danger text-center">You have not yet filled additional information, Click <a
+                    href="{{ route('jobseeker.additions') }}">Here</a> to fill</h5>
             @endif
             <!-- Job Recommendations Section -->
             <div class="card mt-4 shadow-sm">

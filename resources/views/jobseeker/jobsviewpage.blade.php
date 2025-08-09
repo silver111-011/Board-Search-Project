@@ -16,7 +16,7 @@
   
             @if($unappliedJobs->count() > 0)
             <div class="col-sm-12">
-              <form action="{{ route('jobseeker.allJobsSearch') }}" method="post" class="mb-3">
+              <form action="" method="post" class="mb-3">
                   @csrf
                   <div class="input-group">
                       <input type="text" name="searchinput" class="search-input form-control" placeholder="Search by category"

@@ -38,26 +38,26 @@ class AuthController extends Controller
         return redirect()->route('login');
     }
 
-    public function login(Request $request)
+    public function login($jobid = null)
     {   
-   
+          $request = request();
         // Validate input
         $credentials = $request->validate([
             'email'    => 'required|email',
             'password' => 'required',
         ]);
-
+       
         // Attempt login
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return $this->redirectToDashboard(Auth::user());
+            return $this->redirectToDashboard(Auth::user(),$jobid);
         }
 
         return back()->with('fail', 'Invalid credentials');
     }
 
-    protected function redirectToDashboard(User $user)
+    protected function redirectToDashboard(User $user, $id = null)
     {
         if ($user->role === 'employer') {
            return redirect()->route('employer.dashboard');
@@ -66,6 +66,11 @@ class AuthController extends Controller
             return redirect()->route('admin.dashboard');
          }
          
-       return redirect()->route('jobseeker.dashboard');
+         if($id == null){
+            return redirect()->route('jobseeker.dashboard');
+         }else{
+            return redirect()->route('jobseeker.applicationForm',$id);
+         }
+       
     }
 }
