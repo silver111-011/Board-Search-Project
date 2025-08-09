@@ -1,22 +1,20 @@
-<footer class="bg-dark text-white py-5">
+<footer class="bg-dark-blue text-white py-5" style="background-color: #002366;">
     <div class="container text-center">
         <!-- Quick Links -->
         <div class="row mb-4">
             <div class="col-md-12">
                 <h5>Quick Links</h5>
                 <a href="#" class="text-white mx-2">Home</a>
-       
                 <a href="#" class="text-white mx-2">Get in Touch</a>
             </div>
         </div>
 
         <!-- App Download Links -->
-     
 
         <!-- Contact Information -->
         <div class="mb-4">
             <p>Need assistance? Email us at <a href="mailto:support@boardsearch.com" class="text-white">support@boardsearch.com</a></p>
-            <p>#861, Phase 5, Udyog Vihar, Gurugram, Haryana, National Capital Region, India. 122016.</p>
+            <p>#861, Phase 5, Dar es Salaam, Posta,  National Capital Region, Tanzania. 122016.</p>
         </div>
 
         <!-- Social Media Icons -->
